@@ -20,35 +20,123 @@ class RootViewController: UIViewController {
     @IBOutlet var tabBarView: UIView!
     @IBOutlet var homeLabel: UILabel!
     @IBOutlet var searchLabel: UILabel!
-    @IBOutlet var spacesLabel: UILabel!
+    @IBOutlet var chooseLabel: UILabel!
     @IBOutlet var notifsLabel: UILabel!
     @IBOutlet var messageLabel: UILabel!
     
+    var chooseUserNC:UINavigationController?
+    var chooseUserVC:ChooseUserViewController?
     var homeNC:UINavigationController?
-    //var homeVC:HomeViewController?
-    var searchNC:UINavigationController?
-    //var searchVC:HomeViewController?
-    var spacesNC:UINavigationController?
-    //var spacesVC:HomeViewController?
+    var homeVC:HomeViewController?
+    var editProfileNC:UINavigationController?
+    var editProfileVC:EditProfileViewController?
     var notifsNC:UINavigationController?
-    //var notifsVC:HomeViewController?
+    var notifsVC:NotifsViewController?
     var messageNC:UINavigationController?
-    //var messageVC:HomeViewController?
+    var messageVC:MessageViewController?
+    var activeNC:UINavigationController?
+    
+    var selectedUser:User?
+    var orderNo:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        
+        orderNo = UserDefaults.standard.integer(forKey: "PostOrderNo") 
+        
+        setUserInfo()
+        chooseUserClicked(nil)
     }
-
-    @IBAction func homeClicked(_ sender: UIButton) {
+    
+    func setLabelToDefault() {
+        homeLabel.textColor = UIColor.white
+        searchLabel.textColor = UIColor.white
+        chooseLabel.textColor = UIColor.white
+        notifsLabel.textColor = UIColor.white
+        messageLabel.textColor = UIColor.white
     }
+    
+    func setUserInfo() {
+        if (UserDefaults.standard.data(forKey: "User1Response") != nil) && (UserDefaults.standard.data(forKey: "User2Response") != nil) && (UserDefaults.standard.data(forKey: "User3Response") != nil) {
+            return
+        }
+        let user1:User = User(userId: "1", username: "Alex", profilePhotoUrl: "User1Icon", about: "Hey, I am Alex. I am Engineer")
+        let user2:User = User(userId: "2", username: "Bryan", profilePhotoUrl: "User2Icon", about: "Hey, I am Bryan. I am 34 years old.")
+        let user3:User = User(userId: "3", username: "Pascal", profilePhotoUrl: "User3Icon", about: "Hey, I am Pascal from German.")
+        
+        let user1Data:Data
+        let user2Data:Data
+        let user3Data:Data
+        
+        do {
+            user1Data = try JSONEncoder().encode(user1)
+            user2Data = try JSONEncoder().encode(user2)
+            user3Data = try JSONEncoder().encode(user3)
+        }
+        catch let jsonErr {
+            print("Encoder Error: \(jsonErr.localizedDescription)")
+            return
+        }
+        UserDefaults.standard.set(user1Data, forKey: "User1Response")
+        UserDefaults.standard.set(user2Data, forKey: "User2Response")
+        UserDefaults.standard.set(user3Data, forKey: "User3Response")
+        UserDefaults.standard.synchronize()
+    }
+    
+    @IBAction func homeClicked(_ sender: UIButton?) {
+        setLabelToDefault()
+        homeLabel.textColor = UIColor.red
+        homeNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "HomeNC") as? UINavigationController
+        
+        activeNC?.view.removeFromSuperview()
+        activeView.addSubview(homeNC!.view!)
+        
+        activeNC = homeNC
+    }
+    
     @IBAction func searchClicked(_ sender: UIButton) {
+        setLabelToDefault()
+        searchLabel.textColor = UIColor.red
+        editProfileNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "EditProfileNC") as? UINavigationController
+        
+        activeNC?.view.removeFromSuperview()
+        activeView.addSubview(editProfileNC!.view!)
+        
+        activeNC = editProfileNC
     }
-    @IBAction func spacesClicked(_ sender: UIButton) {
+    
+    @IBAction func chooseUserClicked(_ sender: UIButton?) {
+        setLabelToDefault()
+        chooseLabel.textColor = UIColor.red
+        chooseUserNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "ChooseUserNC") as? UINavigationController
+        
+        activeNC?.view.removeFromSuperview()
+        activeView.addSubview(chooseUserNC!.view!)
+        
+        activeNC = chooseUserNC
     }
+    
     @IBAction func notifsClicked(_ sender: UIButton) {
+        setLabelToDefault()
+        notifsLabel.textColor = UIColor.red
+        notifsNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "NotifsNC") as? UINavigationController
+        
+        activeNC?.view.removeFromSuperview()
+        activeView.addSubview(notifsNC!.view!)
+        
+        activeNC = notifsNC
     }
+    
     @IBAction func messageClicked(_ sender: UIButton) {
+        setLabelToDefault()
+        messageLabel.textColor = UIColor.red
+        messageNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "MessageNC") as? UINavigationController
+        
+        activeNC?.view.removeFromSuperview()
+        activeView.addSubview(messageNC!.view!)
+        
+        activeNC = messageNC
     }
 }

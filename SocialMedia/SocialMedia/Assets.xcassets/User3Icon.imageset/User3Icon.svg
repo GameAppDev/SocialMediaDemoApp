@@ -1,0 +1,17 @@
+<svg id="abstract-user-flat-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="580" viewBox="0 0 600 580">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_262" data-name="Rectangle 262" width="600" height="498" transform="translate(-20 -20)" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <circle id="Ellipse_67" data-name="Ellipse 67" cx="280" cy="280" r="280" transform="translate(-75 -325)" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="Group_881" data-name="Group 881" transform="translate(20 20)" clip-path="url(#clip-path)">
+    <circle id="Ellipse_64" data-name="Ellipse 64" cx="280" cy="280" r="280"/>
+  </g>
+  <path id="Path_301" data-name="Path 301" d="M115,0A115,115,0,1,1,0,115,115,115,0,0,1,115,0Z" transform="translate(185 115)" fill="#ff0"/>
+  <g id="Group_882" data-name="Group 882" transform="translate(95 345)" clip-path="url(#clip-path-2)">
+    <path id="Path_300" data-name="Path 300" d="M205,0C318.218,0,410,91.782,410,205S318.218,410,205,410,0,318.218,0,205,91.782,0,205,0Z" fill="#ff0"/>
+  </g>
+</svg>
