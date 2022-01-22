@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 11.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -28,5 +28,5 @@ struct Posts:Codable {
     var text:String?
     var createDate:String?
     var likeNumber:Int?
-    var likedUsers:[String]?
+    var likedUsers:[String]!
 }

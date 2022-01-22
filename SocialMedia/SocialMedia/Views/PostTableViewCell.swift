@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 12.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -22,15 +22,17 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet var postImageViewHeightC: NSLayoutConstraint!
     
-    var identifierP:String = "PostTableViewCell"
+    let identifierP:String = "PostTableViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         profileImageView.layer.cornerRadius = profileImageView.frame.height/2
-        postImageView.layer.cornerRadius = CGFloat(10)
+        postImageView.layer.cornerRadius = CGFloat(10).dp
         likeButton.layer.cornerRadius = likeButton.frame.height/2
-        likeButton.setBorder(width: 1, color: UIColor.blue)
+        likeButton.setBorder(width: CGFloat(1).dp, color: UIColor.blue)
+        
+        postImageViewHeightC.constant = CGFloat(220).dp
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

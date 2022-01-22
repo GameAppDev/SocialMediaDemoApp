@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 12.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -29,19 +29,22 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupViews()
         aboutTV.delegate = self
         usernameTF.delegate = self
+        
+        let tapView = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapView)
     }
     
     @IBAction func saveClicked(_ sender: UIButton) {
         if appDelegate.rootVC.selectedUser == nil {
-            Tools().showAlert("Please login with a user")
+            showAlert("Please login with a user")
             return
         }
         if usernameTF.text == "" {
-            Tools().showAlert("Please write a username")
+            showAlert("Please write a username")
             return
         }
         
@@ -71,7 +74,7 @@ class EditProfileViewController: UIViewController {
         }
         UserDefaults.standard.synchronize()
         appDelegate.rootVC.selectedUser = newUser
-        Tools().showAlert("User infos changed successfully")
+        showAlert("User infos changed successfully\n\(newUser.username ?? "")")
     }
 }
 
@@ -101,13 +104,13 @@ extension EditProfileViewController: UITextViewDelegate, UITextFieldDelegate {
         let fixedWidth = aboutTV.frame.size.width
         let newSize = aboutTV.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         
-        if newSize.height <= CGFloat(34) {
-            aboutTVHeightC.constant = CGFloat(40)
-            aboutTVViewHeightC.constant = CGFloat(40)
+        if newSize.height <= CGFloat(34).dp {
+            aboutTVHeightC.constant = CGFloat(40).dp
+            aboutTVViewHeightC.constant = CGFloat(40).dp
         }
-        else if newSize.height > CGFloat(80) {
-            aboutTVHeightC.constant = CGFloat(80)
-            aboutTVViewHeightC.constant = CGFloat(80)
+        else if newSize.height > CGFloat(80).dp {
+            aboutTVHeightC.constant = CGFloat(80).dp
+            aboutTVViewHeightC.constant = CGFloat(80).dp
             aboutTV.isScrollEnabled = true
             view.layoutIfNeeded()
         }
@@ -131,33 +134,34 @@ extension EditProfileViewController {
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
-        profileView.setBorder(width: 2, color: UIColor.blue)
+        profileView.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
         profileView.layer.cornerRadius = CGFloat(10)
         
-        aboutTVView.setBorder(width: 1, color: UIColor.blue)
-        usernameTFView.setBorder(width: 1, color: UIColor.blue)
-        aboutTVView.layer.cornerRadius = CGFloat(10)
-        usernameTFView.layer.cornerRadius = CGFloat(10)
+        aboutTVView.setBorder(width: CGFloat(1).dp, color: UIColor.blue)
+        usernameTFView.setBorder(width: CGFloat(1).dp, color: UIColor.blue)
+        aboutTVView.layer.cornerRadius = CGFloat(10).dp
+        usernameTFView.layer.cornerRadius = CGFloat(10).dp
         
-        saveBtnView.layer.cornerRadius = CGFloat(10)
+        saveBtnView.layer.cornerRadius = CGFloat(10).dp
         
-        aboutTVViewHeightC.constant = CGFloat(40)
-        aboutTVHeightC.constant = CGFloat(40)
+        aboutTVViewHeightC.constant = CGFloat(40).dp
+        aboutTVHeightC.constant = CGFloat(40).dp
         if appDelegate.rootVC.selectedUser == nil {
             usernameTF.text = "User"
             aboutTV.text = "About"
             usernameTF.isUserInteractionEnabled = false
             aboutTV.isUserInteractionEnabled = false
-            profileImageView.backgroundColor = UIColor.gray
+            profileImageView.backgroundColor = UIColor.lightGray
+            saveBtnView.backgroundColor = UIColor.lightGray
         }
         else {
-            infoLabel.text = "Username Text max 30 letters\nAbout Text max 140 letters"
+            infoLabel.text = "* Username max 30 letters\n* About max 140 letters"
             let user = appDelegate.rootVC.selectedUser
             usernameTF.text = user?.username
             aboutTV.text = user?.about
             profileImageView.image = UIImage(named: user?.profilePhotoUrl ?? "User1Icon")
             
-            aboutTVHeightC = aboutTV.heightAnchor.constraint(equalToConstant: CGFloat(40))
+            aboutTVHeightC = aboutTV.heightAnchor.constraint(equalToConstant: CGFloat(40).dp)
             aboutTVHeightC.isActive = true
             adjustTextViewHeight()
         }

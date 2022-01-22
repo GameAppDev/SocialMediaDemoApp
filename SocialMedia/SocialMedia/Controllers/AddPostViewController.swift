@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 12.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -35,6 +35,9 @@ class AddPostViewController: UIViewController {
 
         setupViews()
         postTV.delegate = self
+        
+        let tapView = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tapView)
     }
     
     func setPostInfo() {
@@ -49,7 +52,7 @@ class AddPostViewController: UIViewController {
         let createDate = dateFormatter.string(from: date)
         
         (isAddImageSelected) ? (postImage = "PostImage") : (postImage = nil)
-        let newPost:Posts = Posts(userId: user?.userId, username: user?.username, userPhoto: user?.profilePhotoUrl, orderNo: newOrderNumber, photoUrl: postImage, text: postTV.text, createDate: createDate, likeNumber: 0, likedUsers: nil)
+        let newPost:Posts = Posts(userId: user?.userId, username: user?.username, userPhoto: user?.profilePhotoUrl, orderNo: newOrderNumber, photoUrl: postImage, text: postTV.text, createDate: createDate, likeNumber: 0, likedUsers: [])
         
         let newPostData:Data
         
@@ -80,7 +83,7 @@ class AddPostViewController: UIViewController {
     
     @IBAction func saveClicked(_ sender: UIButton) {
         if (postTV.text == "Write Something") || (postTV.text == "") {
-            Tools().showAlert("Pleasse write something")
+            showAlert("Pleasse write something")
             return
         }
         setPostInfo()
@@ -112,14 +115,14 @@ extension AddPostViewController {
         
         navbarView.addBottomShadow()
         
-        saveBtnView.layer.cornerRadius = CGFloat(10)
+        saveBtnView.layer.cornerRadius = CGFloat(10).dp
         
-        postTVView.setBorder(width: 2, color: UIColor.blue)
+        postTVView.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
         postTV.text = "Write Something"
         postTV.textColor = UIColor.lightGray
         
-        addImageButton.setBorder(width: 2, color: UIColor.blue)
+        addImageButton.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
         addImageButton.layer.cornerRadius = addImageButton.frame.height/2
-        backBtnView.setBorder(width: 2, color: UIColor.blue)
+        backBtnView.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
     }
 }

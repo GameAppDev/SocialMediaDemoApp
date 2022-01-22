@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 11.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //

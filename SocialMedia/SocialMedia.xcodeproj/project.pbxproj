@@ -12,7 +12,6 @@
 		189CC0CB2764ED8000884958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189CC0CA2764ED8000884958 /* Assets.xcassets */; };
 		189CC0CE2764ED8000884958 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189CC0CC2764ED8000884958 /* LaunchScreen.storyboard */; };
 		189CC0D62764EE2D00884958 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189CC0D52764EE2D00884958 /* RootViewController.swift */; };
-		189E15BE2765ED120073028F /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E15BD2765ED120073028F /* Tools.swift */; };
 		189E15C0276600180073028F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E15BF276600180073028F /* Extensions.swift */; };
 		189E15C2276614F00073028F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E15C1276614F00073028F /* EditProfileViewController.swift */; };
 		189E15C427662B3E0073028F /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189E15C327662B3E0073028F /* AddPostViewController.swift */; };
@@ -34,7 +33,6 @@
 		189CC0CD2764ED8000884958 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		189CC0CF2764ED8000884958 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		189CC0D52764EE2D00884958 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		189E15BD2765ED120073028F /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		189E15BF276600180073028F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		189E15C1276614F00073028F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		189E15C327662B3E0073028F /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 		18DE54662764FAF7006A664D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				189E15BD2765ED120073028F /* Tools.swift */,
 				189E15BF276600180073028F /* Extensions.swift */,
 			);
 			path = Helpers;
@@ -258,7 +255,6 @@
 				189CC0D62764EE2D00884958 /* RootViewController.swift in Sources */,
 				18DE54612764F829006A664D /* NotifsViewController.swift in Sources */,
 				189E15C0276600180073028F /* Extensions.swift in Sources */,
-				189E15BE2765ED120073028F /* Tools.swift in Sources */,
 				18DE545B2764F7D8006A664D /* HomeViewController.swift in Sources */,
 				189E15C427662B3E0073028F /* AddPostViewController.swift in Sources */,
 				18DE54632764F836006A664D /* MessageViewController.swift in Sources */,

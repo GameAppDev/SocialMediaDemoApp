@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 11.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -24,16 +24,6 @@ class RootViewController: UIViewController {
     @IBOutlet var notifsLabel: UILabel!
     @IBOutlet var messageLabel: UILabel!
     
-    var chooseUserNC:UINavigationController?
-    var chooseUserVC:ChooseUserViewController?
-    var homeNC:UINavigationController?
-    var homeVC:HomeViewController?
-    var editProfileNC:UINavigationController?
-    var editProfileVC:EditProfileViewController?
-    var notifsNC:UINavigationController?
-    var notifsVC:NotifsViewController?
-    var messageNC:UINavigationController?
-    var messageVC:MessageViewController?
     var activeNC:UINavigationController?
     
     var selectedUser:User?
@@ -64,7 +54,7 @@ class RootViewController: UIViewController {
         }
         let user1:User = User(userId: "1", username: "Alex", profilePhotoUrl: "User1Icon", about: "Hey, I am Alex. I am Engineer")
         let user2:User = User(userId: "2", username: "Bryan", profilePhotoUrl: "User2Icon", about: "Hey, I am Bryan. I am 34 years old.")
-        let user3:User = User(userId: "3", username: "Pascal", profilePhotoUrl: "User3Icon", about: "Hey, I am Pascal from German.")
+        let user3:User = User(userId: "3", username: "Pascal", profilePhotoUrl: "User3Icon", about: "Hey, I am Pascal from Germany.")
         
         let user1Data:Data
         let user2Data:Data
@@ -87,56 +77,60 @@ class RootViewController: UIViewController {
     
     @IBAction func homeClicked(_ sender: UIButton?) {
         setLabelToDefault()
-        homeLabel.textColor = UIColor.red
-        homeNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "HomeNC") as? UINavigationController
-        
-        activeNC?.view.removeFromSuperview()
-        activeView.addSubview(homeNC!.view!)
-        
-        activeNC = homeNC
+        if let homeNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "HomeNC") as? UINavigationController {
+            homeLabel.textColor = UIColor.red
+            
+            activeNC?.view.removeFromSuperview()
+            activeView.addSubview(homeNC.view!)
+            
+            activeNC = homeNC
+        }
     }
     
     @IBAction func searchClicked(_ sender: UIButton) {
         setLabelToDefault()
-        searchLabel.textColor = UIColor.red
-        editProfileNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "EditProfileNC") as? UINavigationController
-        
-        activeNC?.view.removeFromSuperview()
-        activeView.addSubview(editProfileNC!.view!)
-        
-        activeNC = editProfileNC
+        if let editProfileNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "EditProfileNC") as? UINavigationController {
+            searchLabel.textColor = UIColor.red
+            
+            activeNC?.view.removeFromSuperview()
+            activeView.addSubview(editProfileNC.view!)
+            
+            activeNC = editProfileNC
+        }
     }
     
     @IBAction func chooseUserClicked(_ sender: UIButton?) {
         setLabelToDefault()
         chooseLabel.textColor = UIColor.red
-        chooseUserNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "ChooseUserNC") as? UINavigationController
-        
-        activeNC?.view.removeFromSuperview()
-        activeView.addSubview(chooseUserNC!.view!)
-        
-        activeNC = chooseUserNC
+        if let chooseUserNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "ChooseUserNC") as? UINavigationController {
+            activeNC?.view.removeFromSuperview()
+            activeView.addSubview(chooseUserNC.view!)
+            
+            activeNC = chooseUserNC
+        }
     }
     
     @IBAction func notifsClicked(_ sender: UIButton) {
         setLabelToDefault()
-        notifsLabel.textColor = UIColor.red
-        notifsNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "NotifsNC") as? UINavigationController
-        
-        activeNC?.view.removeFromSuperview()
-        activeView.addSubview(notifsNC!.view!)
-        
-        activeNC = notifsNC
+        if let notifsNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "NotifsNC") as? UINavigationController {
+            notifsLabel.textColor = UIColor.red
+            
+            activeNC?.view.removeFromSuperview()
+            activeView.addSubview(notifsNC.view!)
+            
+            activeNC = notifsNC
+        }
     }
     
     @IBAction func messageClicked(_ sender: UIButton) {
         setLabelToDefault()
-        messageLabel.textColor = UIColor.red
-        messageNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "MessageNC") as? UINavigationController
-        
-        activeNC?.view.removeFromSuperview()
-        activeView.addSubview(messageNC!.view!)
-        
-        activeNC = messageNC
+        if let messageNC = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "MessageNC") as? UINavigationController {
+            messageLabel.textColor = UIColor.red
+            
+            activeNC?.view.removeFromSuperview()
+            activeView.addSubview(messageNC.view!)
+            
+            activeNC = messageNC
+        }
     }
 }

@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 11.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -57,37 +57,38 @@ class ChooseUserViewController: UIViewController {
             print("Decoder Error: \(jsonErr.localizedDescription)")
             return
         }
+        
         setupViews()
     }
 
     @IBAction func user1Clicked(_ sender: UIButton?) {
         changeStatus(loginStatus: "1", userStatus: "1", theLabel: user1Label, theView: user1View)
         appDelegate.rootVC.selectedUser = user1Response
-        (sender != nil) ? (Tools().showAlert("User Status Changed Successfully")) : ()
+        (sender != nil) ? (showAlert("User Status Changed Successfully\n\(user1Label.text ?? "")")) : ()
     }
     
     @IBAction func user2Clicked(_ sender: UIButton?) {
         changeStatus(loginStatus: "1", userStatus: "2", theLabel: user2Label, theView: user2View)
         appDelegate.rootVC.selectedUser = user2Response
-        (sender != nil) ? (Tools().showAlert("User Status Changed Successfully")) : ()
+        (sender != nil) ? (showAlert("User Status Changed Successfully\n\(user2Label.text ?? "")")) : ()
     }
     
     @IBAction func user3Clicked(_ sender: UIButton?) {
         changeStatus(loginStatus: "1", userStatus: "3", theLabel: user3Label, theView: user3View)
         appDelegate.rootVC.selectedUser = user3Response
-        (sender != nil) ? (Tools().showAlert("User Status Changed Successfully")) : ()
+        (sender != nil) ? (showAlert("User Status Changed Successfully\n\(user3Label.text ?? "")")) : ()
     }
     
     @IBAction func logoutClicked(_ sender: UIButton?) {
         changeStatus(loginStatus: "0", userStatus: "0", theLabel: logoutLabel, theView: logoutView)
         appDelegate.rootVC.selectedUser = nil
-        (sender != nil) ? (Tools().showAlert("User Status Changed Successfully")) : ()
+        (sender != nil) ? (showAlert("User Status Changed Successfully\n\(logoutLabel.text ?? "")")) : ()
     }
     
     func changeStatus(loginStatus:String, userStatus:String, theLabel:UILabel, theView:UIView) {
         setViewsToDefault()
         theLabel.textColor = UIColor.red
-        theView.setBorder(width: 4, color: UIColor.red)
+        theView.setBorder(width: CGFloat(4).dp, color: UIColor.red)
         UserDefaults.standard.set(loginStatus, forKey: "LoginStatus")
         UserDefaults.standard.set(userStatus, forKey: "UserStatus")
         UserDefaults.standard.synchronize()
@@ -95,39 +96,39 @@ class ChooseUserViewController: UIViewController {
     
     func setViewsToDefault() {
         user1Label.textColor = UIColor.blue
-        user1View.setBorder(width: 2, color: UIColor.blue)
+        user1View.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
         user2Label.textColor = UIColor.blue
-        user2View.setBorder(width: 2, color: UIColor.blue)
+        user2View.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
         user3Label.textColor = UIColor.blue
-        user3View.setBorder(width: 2, color: UIColor.blue)
+        user3View.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
         logoutLabel.textColor = UIColor.blue
-        logoutView.setBorder(width: 2, color: UIColor.blue)
+        logoutView.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
     }
 }
 
 extension ChooseUserViewController {
     
     func setupViews() {
-        user1View.setBorder(width: 2, color: UIColor.blue)
-        user1View.layer.cornerRadius = CGFloat(10)
+        user1View.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
+        user1View.layer.cornerRadius = CGFloat(10).dp
         user1ImageView.image = UIImage(named: user1Response?.profilePhotoUrl ?? "User1Icon")
         user1Label.text = user1Response?.username
         user1AboutLabel.text = user1Response?.about
         
-        user2View.setBorder(width: 2, color: UIColor.blue)
-        user2View.layer.cornerRadius = CGFloat(10)
+        user2View.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
+        user2View.layer.cornerRadius = CGFloat(10).dp
         user2ImageView.image = UIImage(named: user2Response?.profilePhotoUrl ?? "User2Icon")
         user2Label.text = user2Response?.username
         user2AboutLabel.text = user2Response?.about
         
-        user3View.setBorder(width: 2, color: UIColor.blue)
-        user3View.layer.cornerRadius = CGFloat(10)
+        user3View.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
+        user3View.layer.cornerRadius = CGFloat(10).dp
         user3ImageView.image = UIImage(named: user3Response?.profilePhotoUrl ?? "User3Icon")
         user3Label.text = user3Response?.username
         user3AboutLabel.text = user3Response?.about
         
-        logoutView.setBorder(width: 2, color: UIColor.blue)
-        logoutView.layer.cornerRadius = CGFloat(10)
+        logoutView.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
+        logoutView.layer.cornerRadius = CGFloat(10).dp
         
         switch UserDefaults.standard.string(forKey: "UserStatus") {
         case "0":

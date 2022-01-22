@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 11.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -21,18 +21,20 @@ class HomeViewController: UIViewController, SetPosts {
     @IBOutlet var addBtnView: UIView!
     
     @IBOutlet var theTableView: UITableView!
-    var identifierP:String = "PostTableViewCell"
+    let identifierP:String = "PostTableViewCell"
     var postCell:PostTableViewCell?
     
     var tableCount:Int = 0
     
     var postResponse:[Posts] = []
     
+    var userLikes:[Int:Bool] = [Int:Bool]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
-        tableCount = appDelegate.rootVC.orderNo
+        tableCount = UserDefaults.standard.integer(forKey: "PostOrderNo")
         getPostsInfo()
     }
     
@@ -42,6 +44,8 @@ class HomeViewController: UIViewController, SetPosts {
         UserDefaults.standard.synchronize()
         
         postResponse.append(newPost)
+        
+        tableCount = appDelegate.rootVC.orderNo
         theTableView.reloadData()
     }
     
@@ -60,21 +64,43 @@ class HomeViewController: UIViewController, SetPosts {
             postResponse.append(post)
         }
         theTableView.registerCell(identifier: identifierP)
-        theTableView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
+        theTableView.contentInset = UIEdgeInsets(top: CGFloat(30).dp, left: 0, bottom: 0, right: 0)
         theTableView.dataSource = self
     }
     
     @objc private func likePostClicked (sender: UIButton) {
         let index = IndexPath(row: sender.tag, section: 0)
-        let userId = (appDelegate.rootVC.selectedUser?.userId)!
-        postResponse[index.row].likedUsers?.append(userId)
-        postResponse[index.row].likeNumber == nil ? (postResponse[index.row].likeNumber = 1) : (postResponse[index.row].likeNumber! += 1)
-        theTableView.reloadData()
+        if let userId = appDelegate.rootVC.selectedUser?.userId {
+            if userLikes[index.row] ?? false {
+                postResponse[index.row].likedUsers = postResponse[index.row].likedUsers?.filter { $0 != userId }
+                postResponse[index.row].likeNumber == nil ? (postResponse[index.row].likeNumber = 0) : (postResponse[index.row].likeNumber! -= 1)
+                theTableView.reloadRows(at: [index], with: .right)
+            }
+            else {
+                postResponse[index.row].likedUsers?.append(userId)
+                postResponse[index.row].likeNumber == nil ? (postResponse[index.row].likeNumber = 1) : (postResponse[index.row].likeNumber! += 1)
+                theTableView.reloadRows(at: [index], with: .left)
+            }
+            
+            let editedPost:Posts = Posts(userId: postResponse[index.row].userId, username: postResponse[index.row].username, userPhoto: postResponse[index.row].userPhoto, orderNo: index.row+1, photoUrl: postResponse[index.row].photoUrl, text: postResponse[index.row].text, createDate: postResponse[index.row].createDate, likeNumber: postResponse[index.row].likeNumber, likedUsers: postResponse[index.row].likedUsers)
+            
+            let editedPostData:Data
+            
+            do {
+                editedPostData = try JSONEncoder().encode(editedPost)
+            }
+            catch let jsonErr {
+                print("Encoder Error: \(jsonErr.localizedDescription)")
+                return
+            }
+            UserDefaults.standard.set(editedPostData, forKey: "PostResponse\(index.row)")
+            UserDefaults.standard.synchronize()
+        }
     }
     
     @IBAction func addPostClicked(_ sender: UIButton) {
         if appDelegate.rootVC.selectedUser == nil {
-            Tools().showAlert("Please login with a user to add a post")
+            showAlert("Please login with a user to add a post")
             return
         }
         if let controller = appDelegate.theStoryboard.instantiateViewController(withIdentifier: "AddPostVC") as? AddPostViewController {
@@ -98,22 +124,24 @@ extension HomeViewController: UITableViewDataSource {
         postCell?.postTextLabel.text = postResponse[indexPath.row].text
         
         if postResponse[indexPath.row].photoUrl == nil {
-            postCell?.postImageViewHeightC.constant = CGFloat(0)
+            postCell?.postImageViewHeightC.constant = 0
         }
         else {
-            postCell?.postImageViewHeightC.constant = CGFloat(220)
+            postCell?.postImageViewHeightC.constant = CGFloat(220).dp
             postCell?.postImageView.image = UIImage(named: postResponse[indexPath.row].photoUrl ?? "")
         }
         
         postCell?.likeNumberLabel.text = "\(postResponse[indexPath.row].likeNumber ?? 0) Likes"
         
-        if postResponse[indexPath.row].likedUsers != nil {
-            for (index, _) in postResponse[indexPath.row].likedUsers!.enumerated() {
-                if postResponse[indexPath.row].likedUsers?[index] == appDelegate.rootVC.selectedUser?.userId {
-                    postCell?.likeButton.backgroundColor = UIColor.blue
-                }
-                else {
-                    postCell?.likeButton.backgroundColor = UIColor.clear
+        userLikes[indexPath.row] = false
+        postCell?.likeButton.backgroundColor = UIColor.clear
+        if (postResponse[indexPath.row].likeNumber ?? 0) > 0 {
+            if let likers = postResponse[indexPath.row].likedUsers {
+                for (index, _) in likers.enumerated() {
+                    if likers[index] == appDelegate.rootVC.selectedUser?.userId {
+                        userLikes[indexPath.row] = true
+                        postCell?.likeButton.backgroundColor = UIColor.blue
+                    }
                 }
             }
         }
@@ -132,6 +160,6 @@ extension HomeViewController {
         view.layoutIfNeeded()
         
         navbarView.addBottomShadow()
-        addBtnView.setBorder(width: 2, color: UIColor.blue)
+        addBtnView.setBorder(width: CGFloat(2).dp, color: UIColor.blue)
     }
 }

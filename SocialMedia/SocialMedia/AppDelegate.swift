@@ -3,7 +3,7 @@
 // SocialMedia
 //
 // Created on 11.12.2021.
-// Copyright (c)  Oguzhan Yalcin
+// Oguzhan Yalcin
 //
 //
 //
@@ -13,7 +13,6 @@ import UIKit
 
 let appMode = "test" // test or live
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-let timeFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var rootVC:RootViewController!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let langStr = Locale.current.languageCode
         
+        let langStr = Locale.current.languageCode
         if langStr != nil && langStr != "" {
             UserDefaults.standard.setValue(langStr, forKey: "LANG")
         }
@@ -34,7 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.synchronize()
         
         theStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        self.openRoot()
+        
+        openRoot()
+        
         return true
     }
 
